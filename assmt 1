@@ -1,0 +1,224 @@
+
+ 
+create table employee(emp_id int,name varchar(20),city varchar(20),dob date,adhar_no int);
+ desc employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| emp_id   | int         | YES  |     | NULL    |       |
+| name     | varchar(20) | YES  |     | NULL    |       |
+| city     | varchar(20) | YES  |     | NULL    |       |
+| dob      | date        | YES  |     | NULL    |       |
+| adhar_no | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+
+create table student(roll_no int primary key,name varchar(20) not null,age int not null check(age>0 and age<=99),adress varchar(50),gen
+der varchar(10) default"m");
+Query OK, 0 rows affected (2.20 sec)
+
+ desc student;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| roll_no | int         | NO   | PRI | NULL    |       |
+| name    | varchar(20) | NO   |     | NULL    |       |
+| age     | int         | NO   |     | NULL    |       |
+| adress  | varchar(50) | YES  |     | NULL    |       |
+| gender  | varchar(10) | YES  |     | m       |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.41 sec)
+
+
+
+create temporary table student1 select * from student;
+Query OK, 0 rows affected (0.00 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student1;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| roll_no | int         | NO   |     | NULL    | NULL  |
+| name    | varchar(20) | NO   |     | NULL    | NULL  |
+| age     | int         | NO   |     | NULL    | NULL  |
+| adress  | varchar(50) | YES  |     | NULL    | NULL  |
+| gender  | varchar(10) | YES  |     | m       | NULL  |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+
+create table emp as select * from employee;
+Query OK, 0 rows affected (1.37 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| emp_id   | int         | YES  |     | NULL    |       |
+| name     | varchar(20) | YES  |     | NULL    |       |
+| city     | varchar(20) | YES  |     | NULL    |       |
+| dob      | date        | YES  |     | NULL    |       |
+| adhar_no | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+
+create database invoice;
+Query OK, 1 row affected (0.11 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| invoice            |
+| ksb                |
+| mysql              |
+| performance_schema |
+| sys                |
+| tonydb             |
++--------------------+
+7 rows in set (0.00 sec)
+use invoice;
+Database changed
+mysql> 
+
+
+
+
+create table customer(id int primary key,name varchar(15),adress varchar(50),city varchar(20),ph_no int not null);
+Query OK, 0 rows affected (1.26 sec)
+
+mysql> desc customer;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| id     | int         | NO   | PRI | NULL    |       |
+| name   | varchar(15) | YES  |     | NULL    |       |
+| adress | varchar(50) | YES  |     | NULL    |       |
+| city   | varchar(20) | YES  |     | NULL    |       |
+| ph_no  | int         | NO   |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+
+create table product(pid int primary key,pname varchar(20) not null,price int default'0');
+Query OK, 0 rows affected (1.19 sec)
+desc product;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| pid   | int         | NO   | PRI | NULL    |       |
+| pname | varchar(20) | NO   |     | NULL    |       |
+| price | int         | YES  |     | 0       |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+
+create table invoice_master(inv_id int primary key,cust_id int,inv_date date,foreign key(cust_id)references customer(id));
+Query OK, 0 rows affected (2.12 sec)
+
+mysql> desc invoice_master;
++----------+------+------+-----+---------+-------+
+| Field    | Type | Null | Key | Default | Extra |
++----------+------+------+-----+---------+-------+
+| inv_id   | int  | NO   | PRI | NULL    |       |
+| cust_id  | int  | YES  | MUL | NULL    |       |
+| inv_date | date | YES  |     | NULL    |       |
++----------+------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+
+ create table invoice_item(inv_id int,pid int,quantity int,foreign key(inv_id)references invoice_master(inv_id),foreign key(pid)references product(pid));
+Query OK, 0 rows affected (1.20 sec)
+
+mysql> desc invoice_item;
++----------+------+------+-----+---------+-------+
+| Field    | Type | Null | Key | Default | Extra |
++----------+------+------+-----+-----alter table employee modify dob year;
+Query OK, 0 rows affected (2.56 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| SSN      | int         | YES  |     | NULL    |       |
+| emp_id   | int         | YES  |     | NULL    |       |
+| name     | varchar(20) | YES  |     | NULL    |       |
+| city     | varchar(20) | YES  |     | NULL    |       |
+| dob      | year        | YES  |     | NULL    |       |
+| adhar_no | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+----+-------+
+| inv_id   | int  | YES  | MUL | NULL    |       |
+| pid      | int  | YES  | MUL | NULL    |       |
+| quantity | int  | YES  |     | NULL    |       |
++----------+------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+
+alter table employee modify dob year;
+Query OK, 0 rows affected (2.56 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| SSN      | int         | YES  |     | NULL    |       |
+| emp_id   | int         | YES  |     | NULL    |       |
+| name     | varchar(20) | YES  |     | NULL    |       |
+| city     | varchar(20) | YES  |     | NULL    |       |
+| dob      | year        | YES  |     | NULL    |       |
+| adhar_no | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+
+
+
+
+PART B
+
+
+
+1)alter table employee add SSN int first;
+Query OK, 0 rows affected (0.50 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| SSN      | int         | YES  |     | NULL    |       |
+| emp_id   | int         | YES  |     | NULL    |       |
+| name     | varchar(20) | YES  |     | NULL    |       |
+| city     | varchar(20) | YES  |     | NULL    |       |
+| dob      | date        | YES  |     | NULL    |       |
+| adhar_no | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+2.)
+alter table employee modify dob year;
+Query OK, 0 rows affected (2.56 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| SSN      | int         | YES  |     | NULL    |       |
+| emp_id   | int         | YES  |     | NULL    |       |
+| name     | varchar(20) | YES  |     | NULL    |       |
+| city     | varchar(20) | YES  |     | NULL    |       |
+| dob      | year        | YES  |     | NULL    |       |
+| adhar_no | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+
