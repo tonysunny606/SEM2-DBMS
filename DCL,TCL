@@ -1,0 +1,163 @@
+1.commit
+
+
+Mysql> set auto commit=off;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'commit=off' at line 1
+mysql> set autocommit=off;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from student;
+Empty set (0.00 sec)
+
+mysql> show tables;
++------------------+
+| Tables_in_tonydb |
++------------------+
+| book             |
+| mark             |
+| stud             |
+| stud1            |
+| student          |
++------------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from stud1;
++---------+-------+-----+------+------------+
+| roll_no | name  | age | mark | adress     |
++---------+-------+-----+------+------------+
+|       1 | abhi  |  25 |   55 | jahayg     |
+|       2 | athul |  22 |   66 | kjuihijhiy |
+|       3 | arun  |  26 |   69 | kjssfwsfgy |
++---------+-------+-----+------+------------+
+3 rows in set (0.02 sec)
+
+
+
+
+-------------------------------------------------------------------------------------
+2.roll back
+mysql> rollback;
+Query OK, 0 rows affected (0.50 sec)
+
+mysql> select * from book;
++---------+-----------+
+| book_id | book_name |
++---------+-----------+
+|     998 | ttotochan |
+|    7425 | sleep     |
+|   79981 | apj       |
++---------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> set autocommit=off;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into book values(001,'jahfa');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from book;
++---------+-----------+
+| book_id | book_name |
++---------+-----------+
+|       1 | jahfa     |
+|     998 | ttotochan |
+|    7425 | sleep     |
+|   79981 | apj       |
++---------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> delete from book where book_id=1;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from book;
++---------+-----------+
+| book_id | book_name |
++---------+-----------+
+|     998 | ttotochan |
+|    7425 | sleep     |
+|   79981 | apj       |
++---------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> select * from book;
++---------+-----------+
+| book_id | book_name |
++---------+-----------+
+|     998 | ttotochan |
+|    7425 | sleep     |
+|   79981 | apj       |
++---------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> insert into book values(001,'jahfa');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> delete from book where book_id=1;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from book;
++---------+-----------+
+| book_id | book_name |
++---------+-----------+
+|     998 | ttotochan |
+|    7425 | sleep     |
+|   79981 | apj       |
++---------+-----------+
+
+
+
+----------------------------------------------------------------------------------------------------------------
+1.GRANT
+
+
+
+
+
+mysql> create USER TONY@'localhost' IDENTIFIED BY 'mypass';
+Query OK, 0 rows affected (0.75 sec)
+
+
+
+mysql> create USER TONY@'localhost' IDENTIFIED BY 'mypass';
+Query OK, 0 rows affected (0.75 sec)
+
+mysql> create USER SUNNY@'localhost' IDENTIFIED BY 'SUNNY';
+Query OK, 0 rows affected (0.59 sec)
+
+mysql> grant select on invoice.customer to TONY@'localhost';
+Query OK, 0 rows affected (0.58 sec)
+
+mysql> show grants for TONY@'localhost';
++------------------------------------------------------------+
+| Grants for TONY@localhost                                  |
++------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `TONY`@`localhost`                   |
+| GRANT SELECT ON `invoice`.`customer` TO `TONY`@`localhost` |
++------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+
+
+mysql> grant delete,update on invoice.customer to SUNNY@'localhost';
+Query OK, 0 rows affected (0.53 sec)
+---------------------------------------------------------------------------------------------------------------------------------
+2. REVOKE
+mysql> revoke delete on invoice.customer from SUNNY@'localhost';
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> show grants for SUNNY@'localhost';
++-------------------------------------------------------------+
+| Grants for SUNNY@localhost                                  |
++-------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `SUNNY`@`localhost`                   |
+| GRANT UPDATE ON `invoice`.`customer` TO `SUNNY`@`localhost` |
++-------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+
