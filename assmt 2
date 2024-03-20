@@ -705,7 +705,7 @@ mysql> select * from customer;
 2 rows in set (0.00 sec)
 
 
-
+//VERIFIED
 
 
 mysql> delete from invoice_master where inv_id=107;
