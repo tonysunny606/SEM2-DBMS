@@ -1,0 +1,149 @@
+
+
+1.List all customer details. 
+***********************************
+
+mysql> show tables;
++-------------------+
+| Tables_in_invoice |
++-------------------+
+| customer          |
+| invoice_item      |
+| invoice_master    |
+| product           |
++-------------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from customer;
++-------+--------+------------------+---------+--------------+
+| id    | name   | adress           | city    | ph_no        |
++-------+--------+------------------+---------+--------------+
+| 10003 | arun   | thiruvanthapuram | tvm     |    949897562 |
+| 10004 | aleena | waynad           | vithyir | 628242293250 |
++-------+--------+------------------+---------+--------------+
+2 rows in set (0.01 sec)
+
+2.    List pname, price of all products. 
+******************************************
+
+mysql> select pname,price from product;
++--------------+-------+
+| pname        | price |
++--------------+-------+
+| pen          |    10 |
+| pencil       |     5 |
+| soap         |    36 |
+| notebook     |    51 |
+| matchbox max |    61 |
++--------------+-------+
+5 rows in set (0.00 sec)
+
+
+3.List all invoice items, avoid duplicates. 
+******************************************************
+mysql> select pid from invoice_item;
++------+
+| pid  |
++------+
+|    1 |
+|    1 |
+|    2 |
+|    2 |
+|    2 |
+|    3 |
+|    3 |
+|    4 |
+|    4 |
+|    4 |
+|    5 |
++------+
+11 rows in set (0.00 sec)
+
+mysql> select distinct pid from invoice_item;
++------+
+| pid  |
++------+
+|    1 |
+|    2 |
+|    3 |
+|    4 |
+|    5 |
++------+
+5 rows in set (0.00 sec)
+
+ 4.List product price between 50rs and 150rs 
+ **********************************************
+ mysql> select * from product where price between 50 and 150;
++-----+--------------+-------+
+| pid | pname        | price |
++-----+--------------+-------+
+|   4 | notebook     |    51 |
+|   5 | matchbox max |    61 |
++-----+--------------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from product where price between 50 and 150;
++-----+--------------+-------+
+| pid | pname        | price |
++-----+--------------+-------+
+|   4 | notebook     |    51 |
+|   5 | matchbox max |    61 |
++-----+--------------+-------+
+2 rows in set (0.00 sec)
+
+5. List the customer details who lives in ‘ekm’,’tvm’.
+*********************************************************
+mysql> select * from customer;
++-------+--------+------------------+---------+--------------+
+| id    | name   | adress           | city    | ph_no        |
++-------+--------+------------------+---------+--------------+
+| 10002 | albin  | ernakulam        | ekm     |         NULL |
+| 10003 | arun   | thiruvanthapuram | tvm     |    949897562 |
+| 10004 | aleena | waynad           | vithyir | 628242293250 |
++-------+--------+------------------+---------+--------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from customer where city in('ekm','tvm');
++-------+-------+------------------+------+-----------+
+| id    | name  | adress           | city | ph_no     |
++-------+-------+------------------+------+-----------+
+| 10002 | albin | ernakulam        | ekm  |      NULL |
+| 10003 | arun  | thiruvanthapuram | tvm  | 949897562 |
++-------+-------+------------------+------+-----------+
+2 rows in set (0.00 sec)
+
+6.List the invoice details from 1st January 2021 to 31st march 2021 
+************************************************************************
+mysql> select * from invoice_master where inv_date between 20210105 and 20220105;
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|    101 |   10001 | 2021-01-05 |
+|    102 |   10001 | 2021-01-05 |
+|    103 |   10001 | 2021-01-05 |
+|    104 |   10001 | 2021-01-05 |
++--------+---------+------------+
+4 rows in set (0.00 sec)
+
+7.    List the customer details who not live in ‘tvm’. 
+*************************************************************
+mysql> select * from customer;
++-------+--------+------------------+---------+--------------+
+| id    | name   | adress           | city    | ph_no        |
++-------+--------+------------------+---------+--------------+
+| 10002 | albin  | ernakulam        | ekm     |         NULL |
+| 10003 | arun   | thiruvanthapuram | tvm     |    949897562 |
+| 10004 | aleena | waynad           | vithyir | 628242293250 |
++-------+--------+------------------+---------+--------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from customer where city not in('tvm');
++-------+--------+-----------+---------+--------------+
+| id    | name   | adress    | city    | ph_no        |
++-------+--------+-----------+---------+--------------+
+| 10002 | albin  | ernakulam | ekm     |         NULL |
+| 10004 | aleena | waynad    | vithyir | 628242293250 |
++-------+--------+-----------+---------+--------------+
+2 rows in set (0.00 sec)
+
+
