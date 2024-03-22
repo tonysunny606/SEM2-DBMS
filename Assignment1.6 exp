@@ -1,0 +1,101 @@
+
+OPTIMIZING DATABASE:  (GROUP BY, AGGREGATE FUNCTIONS)
+1.    List product name, price except soap on price order.
+***********************************************************
+mysql> select * from product;
++-----+--------------+-------+
+| pid | pname        | price |
++-----+--------------+-------+
+|   1 | pen          |    10 |
+|   2 | pencil       |     5 |
+|   3 | soap         |    36 |
+|   4 | notebook     |    51 |
+|   5 | matchbox max |    61 |
++-----+--------------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select pname,price from product where pname!="soap" order by price;
++--------------+-------+
+| pname        | price |
++--------------+-------+
+| pencil       |     5 |
+| pen          |    10 |
+| notebook     |    51 |
+| matchbox max |    61 |
++--------------+-------+
+4 rows in set (0.01 sec)
+
+2.Find minimum, maximum and average price of products. 
+*********************************************************
+mysql> select * from product;
++-----+--------------+-------+
+| pid | pname        | price |
++-----+--------------+-------+
+|   1 | pen          |    10 |
+|   2 | pencil       |     5 |
+|   3 | soap         |    36 |
+|   4 | notebook     |    51 |
+|   5 | matchbox max |    61 |
++-----+--------------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select min(price) as Minimum_price,max(price) as Maximum_price,avg(price) as Average_price from product;
++---------------+---------------+---------------+
+| Minimum_price | Maximum_price | Average_price |
++---------------+---------------+---------------+
+|             5 |            61 |       32.6000 |
++---------------+---------------+---------------+
+1 row in set (0.41 sec)
+
+3.Find number of customers in each city. 
+*********************************************
+mysql> select * from customer;
++-------+--------+------------------+---------+--------------+
+| id    | name   | adress           | city    | ph_no        |
++-------+--------+------------------+---------+--------------+
+| 10002 | albin  | ernakulam        | ekm     |         NULL |
+| 10003 | arun   | thiruvanthapuram | tvm     |    949897562 |
+| 10004 | aleena | waynad           | vithyir | 628242293250 |
++-------+--------+------------------+---------+--------------+
+3 rows in set (0.01 sec)
+
+mysql> select city,count(name) from customer group by city;
++---------+-------------+
+| city    | count(name) |
++---------+-------------+
+| ekm     |           1 |
+| tvm     |           1 |
+| vithyir |           1 |
++---------+-------------+
+3 rows in set (0.01 sec)
+
+4.Find number of customers in each city, only include city with more than 3 customers.
+***************************************************************************************
+mysql> select * from customer;
++-------+--------+------------------+---------+--------------+
+| id    | name   | adress           | city    | ph_no        |
++-------+--------+------------------+---------+--------------+
+|  1005 | nijil  | jkgjahkd         | ekm     |    987458975 |
+|  1006 | neethu | vayittila        | ekm     |    987458975 |
+| 10002 | albin  | ernakulam        | ekm     |         NULL |
+| 10003 | arun   | thiruvanthapuram | tvm     |    949897562 |
+| 10004 | aleena | waynad           | vithyir | 628242293250 |
++-------+--------+------------------+---------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> select count(name)from customer group by city having count(city)>2;
++-------------+
+| count(name) |
++-------------+
+|           3 |
++-------------+
+1 row in set (0.00 sec)
+mysql> select city,count(city)from customer group by city having count(city)>2;
++------+-------------+
+| city | count(city) |
++------+-------------+
+| ekm  |           3 |
++------+-------------+
+1 row in set (0.00 sec)
+
+
