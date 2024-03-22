@@ -1,0 +1,138 @@
+1.5  ACCESSING DATABASE:(SUBQUERY) 
+
+1.    List the customer names of invoice date 3rd February 2018. 
+****************************************************************
+mysql> select * from customer;
++-------+--------+------------------+---------+--------------+
+| id    | name   | adress           | city    | ph_no        |
++-------+--------+------------------+---------+--------------+
+| 10002 | albin  | ernakulam        | ekm     |         NULL |
+| 10003 | arun   | thiruvanthapuram | tvm     |    949897562 |
+| 10004 | aleena | waynad           | vithyir | 628242293250 |
++-------+--------+------------------+---------+--------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from invoice_master;
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|    101 |   10001 | 2021-01-05 |
+|    102 |   10001 | 2021-01-05 |
+|    103 |   10001 | 2021-01-05 |
+|    104 |   10001 | 2021-01-05 |
+|    106 |   10003 | 2022-02-16 |
++--------+---------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select name from customer where id in(select cust_id from invoice_master where inv_date='2022-02-16');
++------+
+| name |
++------+
+| arun |
++------+
+1 row in set (0.00 sec)
+
+2. List the product name and price of each invoice item.
+********************************************************
+mysql> select * from invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    102 |    4 |       20 |
+|    102 |    1 |       12 |
+|    102 |    4 |       12 |
+|    103 |    4 |       12 |
+|    103 |    2 |        5 |
+|    103 |    3 |        4 |
+|    103 |    3 |       60 |
+|    104 |    2 |        4 |
+|    104 |    1 |        5 |
+|    104 |    2 |        6 |
+|    104 |    5 |        4 |
++--------+------+----------+
+11 rows in set (0.01 sec)
+
+mysql> select * from product;
++-----+--------------+-------+
+| pid | pname        | price |
++-----+--------------+-------+
+|   1 | pen          |    10 |
+|   2 | pencil       |     5 |
+|   3 | soap         |    36 |
+|   4 | notebook     |    51 |
+|   5 | matchbox max |    61 |
++-----+--------------+-------+
+5 rows in set (0.01 sec)
+
+mysql> select pname,price from product where pid in(select pid from invoice_item);
++--------------+-------+
+| pname        | price |
++--------------+-------+
+| pen          |    10 |
+| pencil       |     5 |
+| soap         |    36 |
+| notebook     |    51 |
+| matchbox max |    61 |
++--------------+-------+
+5 rows in set (0.00 sec)
+ 3. List the product names, only include their purchased quantity more than 3. . 
+ **********************************************************************************
+ Database changed
+mysql> select * from product;
++-----+--------------+-------+
+| pid | pname        | price |
++-----+--------------+-------+
+|   1 | pen          |    10 |
+|   2 | pencil       |     5 |
+|   3 | soap         |    36 |
+|   4 | notebook     |    51 |
+|   5 | matchbox max |    61 |
++-----+--------------+-------+
+5 rows in set (0.03 sec)
+
+mysql> select pname from product where pid in(select pid from invoice_item where quantity
+    -> ^C
+mysql> select * from invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    102 |    4 |       20 |
+|    102 |    1 |       12 |
+|    102 |    4 |       12 |
+|    103 |    4 |       12 |
+|    103 |    2 |        5 |
+|    103 |    3 |        4 |
+|    103 |    3 |       60 |
+|    104 |    2 |        4 |
+|    104 |    1 |        5 |
+|    104 |    2 |        6 |
+|    104 |    5 |        4 |
++--------+------+----------+
+11 rows in set (0.02 sec)
+
+mysql> select * from product;
++-----+--------------+-------+
+| pid | pname        | price |
++-----+--------------+-------+
+|   1 | pen          |    10 |
+|   2 | pencil       |     5 |
+|   3 | soap         |    36 |
+|   4 | notebook     |    51 |
+|   5 | matchbox max |    61 |
++-----+--------------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select pname from product where pid in(select pid from invoice_item where quantity>3);
++--------------+
+| pname        |
++--------------+
+| pen          |
+| pencil       |
+| soap         |
+| notebook     |
+| matchbox max |
++--------------+
+5 rows in set (0.01 sec)
+
+
+
