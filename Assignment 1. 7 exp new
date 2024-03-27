@@ -1,0 +1,28 @@
+1)List the product name and quantity of invoice items.
+
+mysql> select p_name,quatity from product inner join invoice_item on product.p_id=invoice_item.p_id;
++-----------+---------+
+| p_name    | quatity |
++-----------+---------+
+| pen       |       1 |
+| soap      |       1 |
+| soap      |       2 |
+| soap      |       2 |
+| book      |       1 |
+| color box |       1 |
+| color box |       1 |
++-----------+---------+
+7 rows in set (0.00 sec)
+
+
+2)Display invoice details of transaction dated '2023-11-02'
+
+mysql> select * from customer inner join invoice_master on customer.id=invoice_master.cust_id inner join invoice_item on invoice_master.inv_id=invoice_item.inv_id inner join product on invoice_item.p_id=product.p_id where inv_date='2023-11-02';
++-------+------+--------+---------+-------+--------+---------+------------+--------+------+---------+------+--------+-------+
+| id    | name | adress | city    | ph_no | inv_id | cust_id | inv_date   | inv_id | p_id | quatity | p_id | p_name | price |
++-------+------+--------+---------+-------+--------+---------+------------+--------+------+---------+------+--------+-------+
+| 10001 | John | abcdef | calicut |  NULL |    101 |   10001 | 2023-11-02 |    101 |  432 |       1 |  432 | pen    |    82 |
+| 10001 | John | abcdef | calicut |  NULL |    101 |   10001 | 2023-11-02 |    101 |  433 |       2 |  433 | soap   |   102 |
++-------+------+--------+---------+-------+--------+---------+------------+--------+------+---------+------+--------+-------+
+2 rows in set (0.00 sec)
+
