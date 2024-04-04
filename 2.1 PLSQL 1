@@ -1,0 +1,68 @@
+
+2.1 PL/SQL PROGRAMS- STORED PROCEDURES 
+*******************************************
+mysql>create procedure t2() begin select * from customer; select * from product;select * from invoice_item; select * from invoice_master; end//
+Query OK, 0 rows affected (0.20 sec)
+
+mysql> call t2();
+    -> //
++-------+--------+------------------+---------+--------------+
+| id    | name   | adress           | city    | ph_no        |
++-------+--------+------------------+---------+--------------+
+|  1005 | nijil  | jkgjahkd         | ekm     |    987458975 |
+|  1006 | neethu | vayittila        | ekm     |    987458975 |
+| 10002 | albin  | ernakulam        | ekm     |         NULL |
+| 10003 | arun   | thiruvanthapuram | tvm     |    949897562 |
+| 10004 | aleena | waynad           | vithyir | 628242293250 |
+| 10006 | aksh   | kozhikode        | calicut |         NULL |
++-------+--------+------------------+---------+--------------+
+6 rows in set (0.01 sec)
+
++-----+--------------+-------+
+| pid | pname        | price |
++-----+--------------+-------+
+|   1 | pen          |    10 |English (United Kingdom)
+
+    Help
+    Privacy
+    Terms
+|   2 | pencil       |     5 |
+|   3 | soap         |    36 |
+|   4 | notebook     |    51 |
+|   5 | matchbox max |    61 |
++-----+--------------+-------+
+5 rows in set (0.01 sec)
+
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    102 |    4 |       20 |
+|    102 |    1 |       12 |
+|    102 |    4 |       12 |
+|    103 |    4 |       12 |
+|    103 |    2 |        5 |
+|    103 |    3 |        4 |
+|    103 |    3 |       60 |
+|    104 |    2 |        4 |
+|    104 |    1 |        5 |
+|    104 |    2 |        6 |
+|    104 |    5 |        4 |
++--------+------+----------+
+11 rows in set (0.01 sec)
+
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|    101 |   10001 | 2021-01-05 |
+|    102 |   10001 | 2021-01-05 |
+|    103 |   10001 | 2021-01-05 |
+|    104 |   10001 | 2021-01-05 |
+|    106 |   10003 | 2022-02-16 |
++--------+---------+------------+
+5 rows in set (0.01 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+2.      Create a procedure to find sum of two numbers.
+*******************************************
+
