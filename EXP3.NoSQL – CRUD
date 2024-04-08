@@ -1,0 +1,152 @@
+
+
+NoSQL – CRUD 
+*******************
+1.Write a MongoDB query to create an INVOICE database and collections (CUSTOMER, PRODUCT) and its corresponding documents.
+******************************************************************************************************************invoice> 
+test> use invoice
+switched to db invoice
+invoice> show dbs
+admin   40.00 KiB
+config  92.00 KiB
+ksb     40.00 KiB
+local   72.00 KiB
+
+db.createCollection("CUSTOMER")
+{ ok: 1 }
+invoice> db.createCollection("PRODUCT")
+{ ok: 1 }
+2.      Write a MongoDB query to find all documents from the collection CUSTOMER 
+************************************************************************************
+invoice> db.CUSTOMER.insertMany([{id:101,name:"Arun",adress:"calicut",city:"mukkam"},{id:102,name:"albin",adress:"ernakulam",city:"vittyila"},{id:103,name:"bibin",adress:"malappuram",city:"manjeri"},{id:104,name:"cilen",adress:"palakkadu",city:"pattambi"])
+
+  invoice> db.CUSTOMER.find()
+[
+  {
+    _id: ObjectId('66138c30651c51956eef6353'),
+    id: 101,
+    name: 'Arun',
+    adress: 'calicut',
+    city: 'mukkam'
+  },
+  {
+    _id: ObjectId('66138c30651c51956eef6354'),
+    id: 102,
+    name: 'albin',
+    adress: 'ernakulam',
+    city: 'vittyila'
+  },
+  {
+    _id: ObjectId('66138c30651c51956eef6355'),
+    id: 103,
+    name: 'bibin',
+    adress: 'malappuram',
+    city: 'manjeri'
+  },
+  {
+    _id: ObjectId('66138c30651c51956eef6356'),
+    id: 104,
+    name: 'cilen',
+    adress: 'palakkadu',
+    city: 'pattambi'
+  },
+  {
+    _id: ObjectId('66138c30651c51956eef6357'),
+    id: 105,
+    name: 'tony',
+    adress: 'malappuram',
+    city: 'manjeri'
+  }
+]
+invoice> 
+
+
+3.      Write a MongoDB query to update the city in the collection CUSTOMER.
+**************************************************************************************
+
+invoice> db.CUSTOMER.updateOne({'city':'manjeri'},{$set:{'city':"thiruvali"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+invoice> db.CUSTOMER.find()
+[
+  {
+    _id: ObjectId('66138c30651c51956eef6353'),
+    id: 101,
+    name: 'Arun',
+    adress: 'calicut',
+    city: 'mukkam'
+  },
+  {
+    _id: ObjectId('66138c30651c51956eef6354'),
+    id: 102,
+    name: 'albin',
+    adress: 'ernakulam',
+    city: 'vittyila'
+  },
+  {
+    _id: ObjectId('66138c30651c51956eef6355'),
+    id: 103,
+    name: 'bibin',
+    adress: 'malappuram',
+    city: 'thiruvali'
+  },
+  {
+    _id: ObjectId('66138c30651c51956eef6356'),
+    id: 104,
+    name: 'cilen',
+    adress: 'palakkadu',
+    city: 'pattambi'
+  },
+  {
+    _id: ObjectId('66138c30651c51956eef6357'),
+    id: 105,
+    name: 'tony',
+    adress: 'malappuram',
+    city: 'manjeri'
+  }
+]
+invoice>
+
+4.      Write a MongoDB query to delete the first matched document whose city is “Calicut”.
+***********************************************************************************************
+invoice> db.CUSTOMER.deleteOne({city:'pattambi'})
+{ acknowledged: true, deletedCount: 1 }
+invoice> db.CUSTOMER.find()
+[
+  {
+    _id: ObjectId('66138c30651c51956eef6353'),
+    id: 101,
+    name: 'Arun',
+    adress: 'calicut',
+    city: 'mukkam'
+  },
+  {
+    _id: ObjectId('66138c30651c51956eef6354'),
+    id: 102,
+    name: 'albin',
+    adress: 'ernakulam',
+    city: 'vittyila'
+  },
+  {
+    _id: ObjectId('66138c30651c51956eef6355'),
+    id: 103,
+    name: 'bibin',
+    adress: 'malappuram',
+    city: 'thiruvali'
+  },
+  {
+    _id: ObjectId('66138c30651c51956eef6357'),
+    id: 105,
+    name: 'tony',
+    adress: 'malappuram',
+    city: 'manjeri'
+  }
+]
+invoice> 
+
+
