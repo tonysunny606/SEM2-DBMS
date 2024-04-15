@@ -1,0 +1,89 @@
+NoSQL – RETRIEVING DATA
+*********************************
+1.      Write a MongoDB query to display the customer documents having city ‘manjeri’,’mukkam’. 
+******************************************************************************************
+invoice> db.CUSTOMER.find({$or:[{city:"manjeri"},{city:"mukkam"}]})
+[
+  {
+    _id: ObjectId('66138c30651c51956eef6353'),
+    id: 101,
+    name: 'Arun',
+    adress: 'calicut',
+    city: 'mukkam'
+  },
+  {
+    _id: ObjectId('66138c30651c51956eef6357'),
+    id: 105,
+    name: 'tony',
+    adress: 'malappuram',
+    city: 'manjeri'
+  }
+]
+invoice> 
+2.     Write a MongoDB query to display all customer documents who have age >50.
+****************************************************************************************
+invoice> db.CUSTOMER.find({age:{$gt:50}})
+[
+  {
+    _id: ObjectId('661cade792dad9f70fef634e'),
+    id: 107,
+    name: 'anjali',
+    adress: 'thiruvanthauram',
+    city: 'tvm',
+    age: 55
+  }
+]
+invoice> 
+3.     Write a MongoDB query to find customer documents who not live in ‘tvm’.
+********************************************************************************
+invoice> db.CUSTOMER.find({city:{$ne:"tvm"}})
+[
+  {
+    _id: ObjectId('66138c30651c51956eef6353'),
+    id: 101,
+    name: 'Arun',
+    adress: 'calicut',
+    city: 'mukkam'
+  },
+  {
+    _id: ObjectId('66138c30651c51956eef6354'),
+    id: 102,
+    name: 'albin',
+    adress: 'ernakulam',
+    city: 'vittyila'
+  },
+  {
+    _id: ObjectId('66138c30651c51956eef6355'),
+    id: 103,
+    name: 'bibin',
+    adress: 'malappuram',
+    city: 'thiruvali'
+  },
+  {
+    _id: ObjectId('66138c30651c51956eef6357'),
+    id: 105,
+    name: 'tony',
+    adress: 'malappuram',
+    city: 'manjeri'
+  },
+  {
+    _id: ObjectId('661cac7b92dad9f70fef634b'),
+    id: 106,
+    name: 'hadyia',
+    adresss: 'ernakulam',
+    city: 'ekm',
+    age: 24
+  },
+  {
+    _id: ObjectId('661cade792dad9f70fef634d'),
+    id: 106,
+    name: 'hadyia',
+    adresss: 'ernakulam',
+    city: 'ekm',
+    age: 24
+  }
+]
+invoice> 
+
+
+
