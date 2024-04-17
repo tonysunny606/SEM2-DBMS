@@ -1,0 +1,114 @@
+NoSQL – ADMINISTRATION
+**************************
+
+1.Write a MongoDB query to create a user “CUSTOMER1” and grant the read role in the INVOICE database. 
+*******************************************************************************************************************
+test> show dbs
+admin    40.00 KiB
+config   84.00 KiB
+invoice  80.00 KiB
+ksb      40.00 KiB
+local    72.00 KiB
+test> use tony
+switched to db tony
+tony> db.createUser({user:"CUSTOMER1",pwd:"1234",roles:[{role:"readWrite",db:"tony"}]})
+{ ok: 1 }
+
+
+2.Write a MongoDB query to create the backup for the INVOICE database.
+**********************************************************************************************************mca> show dbs
+admin    132.00 KiB
+config   108.00 KiB
+invoice   80.00 KiB
+ksb       40.00 KiB
+local     72.00 KiB
+mca> db.createCollection("TABLE_MONG")
+{ ok: 1 }
+mca> show collections
+TABLE_MONG
+mca> 
+[1]+  Stopped                 mongosh
+ksb@ksb-OptiPlex-3060:~$ mongodump --db mca
+
+
+2024-04-17T15:17:20.526+0530	writing mca.TABLE_MONG to dump/mca/TABLE_MONG.bson
+2024-04-17T15:17:20.553+0530	done dumping mca.TABLE_MONG (0 documents)
+ksb@ksb-OptiPlex-3060:~$ mongosh
+Current Mongosh Log ID:	661f9aaf7c4264593eef634a
+Connecting to:		mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.2.3
+Using MongoDB:		7.0.8
+Using Mongosh:		2.2.3
+mongosh 2.2.4 is available for download: https://www.mongodb.com/try/download/shell
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+test> show dbs
+admin    132.00 KiB
+config   108.00 KiB
+invoice   80.00 KiB
+ksb       40.00 KiB
+local     72.00 KiB
+mca        8.00 KiB
+test> use mca
+switched to db mca
+mca> show collections
+TABLE_MONG
+mca> db.dropDatabase()
+{ ok: 1, dropped: 'mca' }
+mca> show dbs
+admin    132.00 KiB
+config   108.00 KiB
+invoice   80.00 KiB
+ksb       40.00 KiB
+local     72.00 KiB
+mca> show collections
+
+mca> 
+----------------------------------------------------------------------------------
+
+
+
+3.      Write a MongoDB query to restore a particular database or a collection.
+*********************************************************************************
+
+
+[2]+  Stopped                 mongosh
+mca> 
+[2]+  Stopped                 mongosh
+ksb@ksb-OptiPlex-3060:~$ mongorestore --db mca dump/mca
+2024-04-17T15:18:39.449+0530	The --db and --collection flags are deprecated for this use-case; please use --nsInclude instead, i.e. with --nsInclude=${DATABASE}.${COLLECTION}
+2024-04-17T15:18:39.449+0530	building a list of collections to restore from dump/mca dir
+2024-04-17T15:18:39.449+0530	reading metadata for mca.TABLE_MONG from dump/mca/TABLE_MONG.metadata.json
+2024-04-17T15:18:39.631+0530	restoring mca.TABLE_MONG from dump/mca/TABLE_MONG.bson
+2024-04-17T15:18:39.644+0530	finished restoring mca.TABLE_MONG (0 documents, 0 failures)
+2024-04-17T15:18:39.644+0530	no indexes to restore for collection mca.TABLE_MONG
+2024-04-17T15:18:39.644+0530	0 document(s) restored successfully. 0 document(s) failed to restore.
+ksb@ksb-OptiPlex-3060:~$ mongosh
+Current Mongosh Log ID:	661f9afa9f7309c53def634a
+Connecting to:		mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.2.3
+Using MongoDB:		7.0.8
+Using Mongosh:		2.2.3
+mongosh 2.2.4 is available for download: https://www.mongodb.com/try/download/shell
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2024-04-17T10:26:12.321+05:30: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine. See http://dochub.mongodb.org/core/prodnotes-filesystem
+   2024-04-17T10:26:16.294+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+   2024-04-17T10:26:16.311+05:30: vm.max_map_count is too low
+------
+
+test> show dbs
+admin    132.00 KiB
+config   108.00 KiB
+invoice   80.00 KiB
+ksb       40.00 KiB
+local     72.00 KiB
+mca        8.00 KiB
+test> use mca
+switched to db mca
+mca> show collections
+TABLE_MONG
+mca> 
+
