@@ -15,3 +15,4 @@ invoice> db.CUSTOMER.getIndexes({name:1})
 invoice>
 --------------------------------------------------------
 
+//VERIFIED
